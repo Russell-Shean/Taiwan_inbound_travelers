@@ -30,3 +30,6 @@ zip <- "11010"
 remDr$findElement(using = "id", value = "checkboxform0")$sendKeysToElement(list(zip))
 
 ?RSelenium
+
+# other sources: https://www.r-bloggers.com/2021/04/using-rselenium-to-scrape-a-paginated-html-table/ 
+
