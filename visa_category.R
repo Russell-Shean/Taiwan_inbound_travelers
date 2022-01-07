@@ -79,7 +79,8 @@ visa_categories_melt <- visa_categories %>%
 
 #this changes the data frame to a long form
 visa_categories_melt <- melt(visa_categories_melt, 
-                             id.vars = c("year") )
+                             id.vars = c("year") )%>%
+  mutate(visa_type = as.character(variable))
 
 labels(visa_categories_melt) <- c("Year","Entries","Visa Category")
 
