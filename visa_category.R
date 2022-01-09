@@ -87,7 +87,10 @@ labels(visa_categories_melt) <- c("Year","Entries","Visa Category")
 
 # we only really care about post 2015?
 visa_categories_melt %>%
+<<<<<<< HEAD
   # previous code: started at 2002
+=======
+>>>>>>> 2729090b0e17e5ee2c16e0cb9e7d2d9d62e59f98
   filter(year > 1980)%>%     # this filters out anything before or at 2015
   ggplot()+                 # this calls the plot using the dataframe you just piped in
   geom_point(                #geom_line makes a line graph, other geoms make other types of graphs
