@@ -87,7 +87,7 @@ labels(visa_categories_melt) <- c("Year","Entries","Visa Category")
 
 # we only really care about post 2015?
 visa_categories_melt %>%
-  filter(year > 2015)%>%     # this filters out anything before or at 2015
+  filter(year > 2002)%>%     # this filters out anything before or at 2015
   ggplot()+                 # this calls the plot using the dataframe you just piped in
   geom_line(                #geom_line makes a line graph, other geoms make other types of graphs
     aes(x=year,             # this makes year the x axis
@@ -96,4 +96,49 @@ visa_categories_melt %>%
   ggtitle("Inbound visitors to Taiwan stratified by visa category")+
   ylab("People Entering Taiwan")+
   scale_y_continuous(labels = comma)+  #this changes y axis format from scientific notation to commas
-  labs(color="Visa Category")
+  labs(color="Visa Category")+
+  geom_smooth(data = visa_categories_melt[visa_categories_melt$year >2002 &           # geom smooth builds a model with an error term
+                                            visa_categories_melt$year <2020, ],       # this is the base r way of doing what filter does in the tidyverse
+              aes(x=year,             # this makes year the x axis
+                  y=value,    # this the number of visitors the y axis
+                  color= variable),
+              method = "lm")  #lm specifies that you want to use a linear model
+                              # you could also could use formula to specify a custom model or use "glm" or something for other modeling methods 
+                              # there's probably a an exponential or quadratic modeling method that might better represent
+                              # 2002-2014 data
+
+# linear model
+
+linear_model <- lm(formula= year~value, 
+   data = visa_categories_melt[visa_categories_melt$year >2002 &
+                                 visa_categories_melt$year <2020 &
+                                 visa_categories_melt$visa_type=="Total", ])
+
+# this gives the slope and y-intercept
+linear_model
+
+#this gives a summary of the model
+
+summary(linear_model)
+
+#and if you only care about R2
+
+summary(linear_model)$r.squared
+
+
+# so it looks like and linear model is actually a pretty good model until 2020
+
+
+# now let's try the model with 2020
+
+linear_model_covid <- lm(formula= year~value, 
+                   data = visa_categories_melt[visa_categories_melt$year >2002 &
+                                                 #visa_categories_melt$year <2020 &
+                                                 visa_categories_melt$visa_type=="Total", ])
+
+summary(linear_model_covid)
+
+#not a great model anymore....
+
+# next you could do some sort of outlier test....
+# Here's a link : http://r-statistics.co/Outlier-Treatment-With-R.html
