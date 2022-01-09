@@ -87,9 +87,10 @@ labels(visa_categories_melt) <- c("Year","Entries","Visa Category")
 
 # we only really care about post 2015?
 visa_categories_melt %>%
-  filter(year > 2002)%>%     # this filters out anything before or at 2015
+  # previous code: started at 2002
+  filter(year > 1980)%>%     # this filters out anything before or at 2015
   ggplot()+                 # this calls the plot using the dataframe you just piped in
-  geom_line(                #geom_line makes a line graph, other geoms make other types of graphs
+  geom_point(                #geom_line makes a line graph, other geoms make other types of graphs
     aes(x=year,             # this makes year the x axis
                 y=value,    # this the number of visitors the y axis
                 color= variable)) + #this stratifies and colors by visa category
@@ -97,6 +98,7 @@ visa_categories_melt %>%
   ylab("People Entering Taiwan")+
   scale_y_continuous(labels = comma)+  #this changes y axis format from scientific notation to commas
   labs(color="Visa Category")+
+  # previous code: geom_line
   geom_smooth(data = visa_categories_melt[visa_categories_melt$year >2002 &           # geom smooth builds a model with an error term
                                             visa_categories_melt$year <2020, ],       # this is the base r way of doing what filter does in the tidyverse
               aes(x=year,             # this makes year the x axis
