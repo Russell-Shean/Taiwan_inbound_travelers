@@ -3,7 +3,7 @@
 # First we'll import a ministry of interior excel spreadsheet that has entry statistics stratified by sex
 # and then by age
 # and then again by nationality 
-# 3+ seperate datasets mushed together U+1F644
+# 3+ separate datasets mushed together U+1F644
 
 library(readxl)
 url <- "https://ws.moi.gov.tw/001/Upload/400/relfile/0/4413/79c158fd-d51f-4061-b24b-fbcdb0fb92d9/month/m6-01.xls"
@@ -69,3 +69,10 @@ MOI_inbound <- MOI_inbound[-c(1:3,b:a),]
 ###############################################################################
 
 rm(new_column_names,a,b,destfile,url)
+file.remove("m6_01.xls")
+
+###############################################################
+##  save dataframe
+#################################################################
+
+write.csv(MOI_inbound, file = "./data/MOI_inbound.csv")

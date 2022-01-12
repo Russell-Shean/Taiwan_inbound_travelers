@@ -51,7 +51,7 @@ visa_categories <- as.numeric(visa_categories)
 
 #one NA was introduced, but that's okay because it makes
 # sense to be NA here
-#now convert to matrix, then datafram:
+#now convert to matrix, then dataframe:
 visa_categories <- matrix(visa_categories, nrow = 39)
 visa_categories <- as.data.frame(visa_categories)
 
